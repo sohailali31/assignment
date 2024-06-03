@@ -18,9 +18,9 @@ Acct accts[MAX_ACCTS];
 
 void printIntroMenu();
 void printMainMenu();
-void begin();
-void userLogin();
-void createNewAcct();
+void start();
+void Login();
+void createAccount();
 void withdrawFunds(Acct& a);
 void depositFunds(Acct& a);
 void checkBalance(Acct& a);
@@ -29,7 +29,7 @@ char menuSelection;
 
 int main() {
     cout << "Welcome to Secure Bank ATM!" << endl;
-    begin();
+    start();
     return 0;
 }
 
@@ -49,26 +49,26 @@ void printMainMenu() {
     cout << "> ";
 }
 
-void begin() {
+void start() {
     printIntroMenu();
     cin >> menuSelection;
     switch(menuSelection) {
         case 'L':
-            userLogin();
+            Login();
             break;
         case 'C':
-            createNewAcct();
+            createAccount();
             break;
         case 'Q':
             exit(0);
             break;
         default:
             cout << "Invalid input. Please try again." << endl;
-            begin();
+            start();
     }
 }
 
-void userLogin() {
+void Login() {
     string usr, pwd;
     cout << "Enter your username: ";
     cin >> usr;
@@ -109,15 +109,15 @@ void userLogin() {
                 break;
             default:
                 cout << "Invalid input. Returning to main menu." << endl;
-                begin();
+                start();
         }
     } else {
         cout << "Login failed. Invalid username or password." << endl;
-        begin();
+        start();
     }
 }
 
-void createNewAcct() {
+void createAccount() {
     string usr, pwd;
     cout << "Enter a new username: ";
     cin >> usr;
@@ -127,7 +127,7 @@ void createNewAcct() {
     for (const auto& a : accts) {
         if (a.usr == usr) {
             cout << "Account creation failed. Username already exists." << endl;
-            begin();
+            start();
         }
     }
 
@@ -137,12 +137,12 @@ void createNewAcct() {
             a.pwd = pwd;
             a.bal = INIT_BAL;
             cout << "Account created successfully!" << endl;
-            begin();
+            start();
         }
     }
 
     cout << "Account creation failed. Maximum accounts reached." << endl;
-    begin();
+    start();
 }
 
 void depositFunds(Acct& a) {
@@ -155,7 +155,7 @@ void depositFunds(Acct& a) {
     } else {
         cout << "Invalid amount. Please enter a positive value." << endl;
     }
-    begin();
+    start();
 }
 
 void withdrawFunds(Acct& a) {
@@ -170,10 +170,10 @@ void withdrawFunds(Acct& a) {
     } else {
         cout << "Invalid amount. Please enter a positive value." << endl;
     }
-    begin();
+    start();
 }
 
 void checkBalance(Acct& a) {
     cout << "Your current balance is: $" << a.bal << endl;
-    begin();
+    start();
 }
